@@ -1,0 +1,96 @@
+﻿@model StudentJobApplication.Models.Students
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Students</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobPosition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobPosition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoBase64)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.PhotoBase64))
+            {
+                <img src="data:image/png;base64,@Model.PhotoBase64" alt="Photo" style="max-width: 150px; max-height: 150px;" />
+            }
+            else
+            {
+                <p>No photo available.</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResumeBase64)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ResumeBase64))
+            {
+                <a href="data:application/pdf;base64,@Model.ResumeBase64" download="Resume.pdf" class="btn btn-success">Download Resume</a>
+            }
+            else
+            {
+                <p>No resume available.</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id , @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>

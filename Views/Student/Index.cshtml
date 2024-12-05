@@ -1,0 +1,99 @@
+﻿@model IEnumerable<StudentJobApplication.Models.Students>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success: </strong> @TempData["SuccessMessage"]
+    </div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error: </strong> @TempData["ErrorMessage"]
+    </div>
+}
+else if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-Info">
+        <strong>Error: </strong> @TempData["InfoMessage"]
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.JobPosition)</th>
+            <th>@Html.DisplayNameFor(model => model.PhotoBase64)</th>
+            <th>@Html.DisplayNameFor(model => model.ResumeBase64)</th>
+            <th>@Html.DisplayNameFor(model => model.ApplicationDate)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.JobPosition)</td>
+
+                <!-- Display Photo as an Image -->
+                <td>
+                    @if (!string.IsNullOrEmpty(item.PhotoBase64))
+                    {
+                        <img src="data:image/jpeg;base64,@item.PhotoBase64" alt="Photo" width="100" height="100" />
+                    }
+                    else
+                    {
+                        <span>No Photo</span>
+                    }
+                </td>
+
+                <!-- Display Resume as a Download Link -->
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ResumeBase64))
+                    {
+                        <a href="data:application/pdf;base64,@item.ResumeBase64" download="Resume_@item.FirstName@item.LastName">Download Resume</a>
+                    }
+                    else
+                    {
+                        <span>No Resume</span>
+                    }
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.ApplicationDate)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-secondary" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(5000, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000); // 4 seconds
+</script>
+
